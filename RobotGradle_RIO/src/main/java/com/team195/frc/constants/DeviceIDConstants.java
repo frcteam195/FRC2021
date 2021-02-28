@@ -18,28 +18,27 @@ public class DeviceIDConstants {
 	public static final int kLeftDriveSlaveAId = 2;
 	public static final int kLeftDriveSlaveBId = 3;
 
-	// Control Panel Manipulator
-	public static final int kCPMRotationId = 13;
-
 	//Climber
-	public static final int kClimberWinchMotor = 14;
-	public static final int kClimberArmMotor = 15;
+	public static final int kClimberWinchMotor = 11;
+	public static final int kClimberArmMotor = 10;
 
 
 
 	//Turret
 	public static final int kTurretMotorId = 8;
-	public static final int kHoodMotorId = 9;
-	public static final int kLeftShooterMotorId = 10;
-	public static final int kRightShooterMotorId = 11;
+	public static final int kHoodMotorId = 12;
+	public static final int kLeftShooterMotorId = 13;
+	public static final int kRightShooterMotorId = 14;
 
 	//Intake Feeder
-	public static final int kFeederMotorId = 7;
-	public static final int kIntakeMotorId = 12;
+	public static final int kInnerIntakeMotorId = 9;
+	public static final int kOuterIntakeMotorId = 7;
 
 
 	// Solenoids
-	public static final int kControlPanelExtenderSolenoid = 0;
+	public static final int kBallSolenoid = 0;
+	public static final int kIntakePushSolenoid = 1;
+	public static final int kClimberSolenoid = 2;
 
 	public static final int kCANifierLEDId = 30;
 	public static final int kNeoPixelPWMPort = 0;

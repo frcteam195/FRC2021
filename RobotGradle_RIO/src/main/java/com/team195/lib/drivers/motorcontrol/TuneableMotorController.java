@@ -104,7 +104,7 @@ public interface TuneableMotorController {
 		return (int) (rotations * getSensorUnitsPerRotation() * getGearRatioToOutputMechanism());
 	}
 
-	default double convertNativeUnitsToRPM(int nativeUnits) {
+	default double convertNativeUnitsToRPM(double nativeUnits) {
 		return (nativeUnits / getSensorUnitsPerRotation() / getGearRatioToOutputMechanism() * getVelocityRPMTimeConversionFactor());
 	}
 

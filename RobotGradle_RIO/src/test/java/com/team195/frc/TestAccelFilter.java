@@ -34,23 +34,23 @@ public class TestAccelFilter {
 	public void robAccelFilter() {
 		for (int i = 0; i < 200; i++) {
 			prevVel = shooterVelocityMaxAccelFilterRob(100, prevVel,  100, 0.01);
-			System.out.println(prevVel);
+//			System.out.println(prevVel);
 		}
 		for (int i = 0; i < 200; i++) {
 			prevVel = shooterVelocityMaxAccelFilterRob(-100, prevVel,  100, 0.01);
-			System.out.println(prevVel);
+//			System.out.println(prevVel);
 		}
 		for (int i = 0; i < 200; i++) {
 			prevVel = shooterVelocityMaxAccelFilterRob(0, prevVel,  100, 0.01);
-			System.out.println(prevVel);
+//			System.out.println(prevVel);
 		}
 		for (int i = 0; i < 200; i++) {
 			prevVel = shooterVelocityMaxAccelFilterRob(100, prevVel,  100, 0.01);
-			System.out.println(prevVel);
+//			System.out.println(prevVel);
 		}
 		for (int i = 0; i < 200; i++) {
 			prevVel = shooterVelocityMaxAccelFilterRob(0, prevVel,  100, 0.01);
-			System.out.println(prevVel);
+//			System.out.println(prevVel);
 		}
 	}
 

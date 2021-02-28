@@ -12,6 +12,7 @@ import com.team254.lib.util.CrashTracker;
 import com.team254.lib.util.CrashTrackingRunnable;
 import com.team254.lib.util.DriveSignal;
 import edu.wpi.first.wpilibj.Notifier;
+import org.apache.taglibs.standard.extra.spath.Step;
 
 import java.util.ArrayList;
 import java.util.function.BooleanSupplier;
@@ -138,6 +139,26 @@ public class DriveControls {
 					new SetFeederAction(false, () -> j.getRawButton(b)), 300));
 		});
 
+		registerButtonPressControl(buttonBox1, 5, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetIntakeSolenoidAction(true), 300));
+		});
+
+		registerButtonPressControl(buttonBox1, 6, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetIntakeSolenoidAction(false), 300));
+		});
+
+		registerButtonPressControl(buttonBox1, 7, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetBallSolenoidAction(true), 300));
+		});
+
+		registerButtonPressControl(buttonBox1, 8, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetBallSolenoidAction(false), 300));
+		});
+
 
 		//Blink LEDs Button
 		registerButtonPressControl(buttonBox2, 14, (j, b) -> LEDController.getInstance().setRequestedState(LEDController.LEDState.BLINK));
@@ -148,10 +169,21 @@ public class DriveControls {
 			LEDController.getInstance().setRequestedState(LEDController.LEDState.BLINK);
 		});
 
+		registerButtonPressControl(armControlJoystick, 3, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new StepHoodPositionAction(false), 300));
+		});
+
+		registerButtonPressControl(armControlJoystick, 4, (j, b) -> {
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new StepHoodPositionAction(true), 300));
+		});
+
+
 		//Open Loop Turret Control
 		registerButtonPressControl(armControlJoystick, 8, (j, b) -> {
 			TeleopActionRunner.runAction(AutomatedAction.fromAction(new SetTurretOpenLoopAction(() -> j.getRawButton(b),
-					() -> -armControlJoystick.getNormalizedAxis(2, 0.1) / 3.0), 300, Turret.getInstance()));
+					() -> armControlJoystick.getNormalizedAxis(2, 0.1) / 3.0), 300, Turret.getInstance()));
 		});
 
 		//Rehome Turret

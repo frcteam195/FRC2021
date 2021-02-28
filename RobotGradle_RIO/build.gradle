@@ -11,13 +11,16 @@ buildscript {
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2021.1.2"
+    id "edu.wpi.first.GradleRIO" version "2021.2.2"
     id "idea"
     id "war"
     id "org.hidetake.ssh" version "2.10.1"
 }
 
 apply plugin: 'com.bmuschko.tomcat'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 tasks.withType(JavaCompile) {
 	options.compilerArgs << '-Xlint:unchecked'
@@ -62,7 +65,7 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = getTeamOrDefault(TEAM)
+            team = TEAM
         }
     }
     artifacts {
@@ -116,7 +119,7 @@ dependencies {
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
 
     compile 'gov.nist.math:jama:1.0.3'
-	compile 'com.team195:CKIllposedOSCLib:0.0.1'
+	//compile 'com.team195:CKIllposedOSCLib:0.0.1'
 //	def jUnitVersion = '5.6.0-M1'
 //    testCompile("org.junit.jupiter:junit-jupiter-api:${jUnitVersion}")
 //    testRuntime("org.junit.jupiter:junit-jupiter-engine:${jUnitVersion}")

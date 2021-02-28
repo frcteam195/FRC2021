@@ -7,6 +7,7 @@ import com.team195.frc.loops.Loop;
 import com.team195.frc.reporters.ReflectingLogDataGenerator;
 import com.team195.lib.drivers.motorcontrol.*;
 import com.team195.lib.util.*;
+import edu.wpi.first.wpilibj.Solenoid;
 
 import java.util.List;
 
@@ -15,11 +16,14 @@ public class Intake extends Subsystem {
 
 	private static Intake mInstance = new Intake();
 
-	private final CKTalonFX mIntakeMotor;
-	private final CKTalonFX mFeederMotor;
+	private final CKTalonFX mOuterIntakeMotor;
+	private final CKTalonFX mInnerIntakeMotor;
 
 	private IntakeControlMode mIntakeControlMode = IntakeControlMode.OFF;
 	private FeederControlMode mFeederControlMode = FeederControlMode.OFF;
+
+	private final Solenoid mIntakePushSol;
+	private final Solenoid mBallSol;
 
 	private PeriodicIO mPeriodicIO;
 	private ReflectingLogDataGenerator<PeriodicIO> mLogDataGenerator = new ReflectingLogDataGenerator<>(PeriodicIO.class);
@@ -29,13 +33,16 @@ public class Intake extends Subsystem {
 	private Intake() {
 		mPeriodicIO = new PeriodicIO();
 
-		mIntakeMotor = new CKTalonFX(DeviceIDConstants.kIntakeMotorId, false, PDPBreaker.B30A);
-		mIntakeMotor.setInverted(true);
-		mIntakeMotor.configCurrentLimit(CalConstants.kIntakeContinuousCurrentLimit, CalConstants.kIntakePeakCurrentThreshold, CalConstants.kIntakePeakCurrentThresholdExceedDuration);
+		mOuterIntakeMotor = new CKTalonFX(DeviceIDConstants.kOuterIntakeMotorId, false, PDPBreaker.B30A);
+		mOuterIntakeMotor.setInverted(true);
+		mOuterIntakeMotor.configCurrentLimit(CalConstants.kIntakeContinuousCurrentLimit, CalConstants.kIntakePeakCurrentThreshold, CalConstants.kIntakePeakCurrentThresholdExceedDuration);
 
-		mFeederMotor = new CKTalonFX(DeviceIDConstants.kFeederMotorId, false, PDPBreaker.B30A);
-		mFeederMotor.setInverted(true);
-		mFeederMotor.configCurrentLimit(CalConstants.kFeederContinuousCurrentLimit, CalConstants.kFeederPeakCurrentThreshold, CalConstants.kFeederPeakCurrentThresholdExceedDuration);
+		mInnerIntakeMotor = new CKTalonFX(DeviceIDConstants.kInnerIntakeMotorId, false, PDPBreaker.B30A);
+		mInnerIntakeMotor.setInverted(false);
+		mInnerIntakeMotor.configCurrentLimit(CalConstants.kFeederContinuousCurrentLimit, CalConstants.kFeederPeakCurrentThreshold, CalConstants.kFeederPeakCurrentThresholdExceedDuration);
+
+		mBallSol = new Solenoid(DeviceIDConstants.kBallSolenoid);
+		mIntakePushSol = new Solenoid(DeviceIDConstants.kIntakePushSolenoid);
 
 		zeroSensors();
 	}
@@ -46,8 +53,8 @@ public class Intake extends Subsystem {
 
 	@Override
 	public void stop() {
-		mIntakeMotor.set(MCControlMode.PercentOut, 0, 0, 0);
-		mFeederMotor.set(MCControlMode.PercentOut, 0, 0, 0);
+		mOuterIntakeMotor.set(MCControlMode.PercentOut, 0, 0, 0);
+		mInnerIntakeMotor.set(MCControlMode.PercentOut, 0, 0, 0);
 	}
 
 	@Override
@@ -101,26 +108,26 @@ public class Intake extends Subsystem {
 			synchronized (Intake.this) {
 				switch (mIntakeControlMode) {
 					case FORWARD:
-						mIntakeMotor.set(MCControlMode.PercentOut, 1, 0, 0);
+						mOuterIntakeMotor.set(MCControlMode.PercentOut, 1, 0, 0);
 						break;
 					case REVERSE:
-						mIntakeMotor.set(MCControlMode.PercentOut, -1, 0, 0);
+						mOuterIntakeMotor.set(MCControlMode.PercentOut, -1, 0, 0);
 						break;
 					case OFF:
-						mIntakeMotor.set(MCControlMode.Disabled, 0, 0, 0);
+						mOuterIntakeMotor.set(MCControlMode.Disabled, 0, 0, 0);
 						break;
 				}
 			}
 
 			switch (mFeederControlMode) {
 				case FORWARD:
-					mFeederMotor.set(MCControlMode.PercentOut, 1, 0, 0);
+					mInnerIntakeMotor.set(MCControlMode.PercentOut, 1, 0, 0);
 					break;
 				case REVERSE:
-					mFeederMotor.set(MCControlMode.PercentOut, -1, 0, 0);
+					mInnerIntakeMotor.set(MCControlMode.PercentOut, -1, 0, 0);
 					break;
 				case OFF:
-					mFeederMotor.set(MCControlMode.Disabled, 0, 0, 0);
+					mInnerIntakeMotor.set(MCControlMode.Disabled, 0, 0, 0);
 					break;
 			}
 
@@ -137,6 +144,14 @@ public class Intake extends Subsystem {
 			return "Intake";
 		}
 	};
+
+	public synchronized void setPushSolenoid(boolean on) {
+		mIntakePushSol.set(on);
+	}
+
+	public synchronized void setBallSolenoid(boolean on) {
+		mBallSol.set(on);
+	}
 
 	public synchronized void setIntakeControlMode(IntakeControlMode intakeControlMode) {
 		if (mIntakeControlMode != intakeControlMode)

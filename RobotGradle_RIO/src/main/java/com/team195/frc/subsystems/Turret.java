@@ -270,6 +270,10 @@ public class Turret extends Subsystem implements InterferenceSystem {
 		return Math.abs(mPeriodicIO.turret_setpoint_deg - mPeriodicIO.turret_position_deg) < Math.abs(posDelta);
 	}
 
+	public boolean isHoodAtSetpoint(double posDelta) {
+		return Math.abs(mPeriodicIO.hood_setpoint_deg - mPeriodicIO.hood_position_deg) < Math.abs(posDelta);
+	}
+
 	@Override
 	public double getPosition() {
 		return mPeriodicIO.turret_position_deg;
@@ -279,6 +283,11 @@ public class Turret extends Subsystem implements InterferenceSystem {
 	public double getSetpoint() {
 		return mPeriodicIO.turret_setpoint_deg;
 	}
+
+	public double getHoodSetpoint() {
+		return mPeriodicIO.hood_setpoint_deg;
+	}
+
 
 	public double getShooterVelocity() {
 		return mPeriodicIO.shooter_velocity_rpm;

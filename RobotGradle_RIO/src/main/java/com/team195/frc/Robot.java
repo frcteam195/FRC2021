@@ -62,7 +62,6 @@ public class Robot extends TimedRobot {
 					Drive.getInstance(),
 					Turret.getInstance(),
 					Intake.getInstance(),
-//					ControlPanelManipulator.getInstance(),
 					Infrastructure.getInstance()
 			);
 

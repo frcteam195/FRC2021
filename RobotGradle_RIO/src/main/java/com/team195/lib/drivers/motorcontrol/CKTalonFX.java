@@ -166,8 +166,8 @@ public class CKTalonFX extends TalonFX implements TuneableMotorController {
 		return runTalonFunctionWithRetry((t) -> super.configForwardSoftLimitEnable(enabled, Constants.kCANTimeoutMs));
 	}
 
-	public void configReverseSoftLimitThreshold(double rotations) {
-		runTalonFunctionWithRetry((t) -> super.configReverseSoftLimitThreshold(convertRotationsToNativeUnits(rotations), Constants.kCANTimeoutMs));
+	public ErrorCode configReverseSoftLimitThreshold(double rotations) {
+		return runTalonFunctionWithRetry((t) -> super.configReverseSoftLimitThreshold(convertRotationsToNativeUnits(rotations), Constants.kCANTimeoutMs));
 	}
 
 	@Override
