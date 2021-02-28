@@ -11,7 +11,7 @@ buildscript {
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2020.2.2"
+    id "edu.wpi.first.GradleRIO" version "2021.1.2"
     id "idea"
     id "war"
     id "org.hidetake.ssh" version "2.10.1"
@@ -62,7 +62,7 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = TEAM
+            team = getTeamOrDefault(TEAM)
         }
     }
     artifacts {
