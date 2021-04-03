@@ -160,11 +160,13 @@ public class DriveControls {
 		});
 
 		registerButtonPressControl(buttonBox1, 9, (j, b) -> {
-			VisionTracker.getInstance().setVisionEnabled(true);
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetTurretVisionAction(true), 300));
 		});
 
 		registerButtonPressControl(buttonBox1, 10, (j, b) -> {
-			VisionTracker.getInstance().setVisionEnabled(false);
+			TeleopActionRunner.runAction(AutomatedAction.fromAction(
+					new SetTurretVisionAction(false), 300));
 		});
 
 

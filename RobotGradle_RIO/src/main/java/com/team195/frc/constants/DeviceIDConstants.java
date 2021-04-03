@@ -11,12 +11,12 @@ public class DeviceIDConstants {
 	// are attached to the master)
 
 	// Drive
-	public static final int kRightDriveMasterId = 4;
-	public static final int kRightDriveSlaveAId = 5;
-	public static final int kRightDriveSlaveBId = 6;
-	public static final int kLeftDriveMasterId = 1;
-	public static final int kLeftDriveSlaveAId = 2;
-	public static final int kLeftDriveSlaveBId = 3;
+	public static final int kRightDriveMasterId = 1;
+	public static final int kRightDriveSlaveAId = 2;
+	public static final int kRightDriveSlaveBId = 3;
+	public static final int kLeftDriveMasterId = 4;
+	public static final int kLeftDriveSlaveAId = 5;
+	public static final int kLeftDriveSlaveBId = 6;
 
 	//Climber
 	public static final int kClimberWinchMotor = 11;

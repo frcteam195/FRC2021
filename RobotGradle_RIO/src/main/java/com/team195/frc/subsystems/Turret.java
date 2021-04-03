@@ -67,9 +67,9 @@ public class Turret extends Subsystem implements InterferenceSystem {
 		mTurretHoodMotor.setGearRatioToOutputMechanism(CalConstants.kTurretHoodOverallGearRatioDeg);
 		mTurretHoodMotor.setPIDF(CalConstants.kTurretHoodKp, CalConstants.kTurretHoodKi, CalConstants.kTurretHoodKd, CalConstants.kTurretHoodKf);
 		mTurretHoodMotor.setMotionParameters(CalConstants.kTurretHoodCruiseVel, CalConstants.kTurretHoodMMAccel, CalConstants.kTurretHoodSCurveStrength);
-		mTurretHoodMotor.configForwardSoftLimitThreshold(CalConstants.kTurretHoodMinDegrees);
+		mTurretHoodMotor.configForwardSoftLimitThreshold(CalConstants.kTurretHoodMaxDegrees);
 		mTurretHoodMotor.configForwardSoftLimitEnable(true);
-		mTurretHoodMotor.configReverseSoftLimitThreshold(CalConstants.kTurretHoodMaxDegrees);
+		mTurretHoodMotor.configReverseSoftLimitThreshold(CalConstants.kTurretHoodMinDegrees);
 		mTurretHoodMotor.configReverseSoftLimitEnable(true);
 		mTurretHoodMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, CalConstants.kTurretHoodContinuousStatorCurrentLimit, 0, 0));
 		mTurretHoodMotor.setControlMode(MCControlMode.MotionMagic);
@@ -198,7 +198,7 @@ public class Turret extends Subsystem implements InterferenceSystem {
 					mTurretHoodMotor.set(MCControlMode.PercentOut, Math.min(Math.max(mPeriodicIO.hood_setpoint_deg, -1), 1), 0, 0);
 					break;
 				case POSITION:
-					mTurretHoodMotor.set(MCControlMode.MotionMagic, mPeriodicIO.hood_setpoint_deg, 0, 0);
+					mTurretHoodMotor.set(MCControlMode.MotionMagic, Math.min(Math.max(mPeriodicIO.hood_setpoint_deg, CalConstants.kTurretHoodMinDegrees), CalConstants.kTurretHoodMaxDegrees), 0, 0);
 					break;
 				case DISABLED:
 					mTurretHoodMotor.set(MCControlMode.Disabled, 0, 0, 0);
@@ -240,6 +240,7 @@ public class Turret extends Subsystem implements InterferenceSystem {
 	}
 
 	public synchronized void setTurretPosition(double turretPosition) {
+		System.out.println("Turret Set Called");
 		mPeriodicIO.turret_setpoint_deg = turretPosition;
 	}
 

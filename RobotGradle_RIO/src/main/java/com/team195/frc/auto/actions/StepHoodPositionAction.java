@@ -1,5 +1,6 @@
 package com.team195.frc.auto.actions;
 
+import com.team195.frc.constants.CalConstants;
 import com.team195.frc.subsystems.Turret;
 import com.team195.frc.subsystems.positions.TurretPositions;
 import com.team195.lib.util.TimeoutTimer;
@@ -31,7 +32,7 @@ public class StepHoodPositionAction implements Action {
 	@Override
 	public void start() {
 		mTurret.setHoodControlMode(Turret.HoodControlMode.POSITION);
-		mTurret.setHoodPosition(mPosition);
+		mTurret.setHoodPosition(Math.min(Math.max(mPosition, CalConstants.kTurretHoodMinDegrees), CalConstants.kTurretHoodMaxDegrees));
 		mTimeoutTimer.reset();
 	}
 }

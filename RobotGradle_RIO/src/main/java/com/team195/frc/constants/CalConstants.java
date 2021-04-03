@@ -70,23 +70,23 @@ public class CalConstants {
 	//50:1
 	public static final double kTurretPositionKp = 0.2;
 	public static final double kTurretPositionKi = 0.0;
-	public static final double kTurretPositionKd = 2.0;
+	public static final double kTurretPositionKd = 0.8;
 	public static final double kTurretPositionKf = 1023.0 / 20000.0;
-	public static final int kTurretPositionCruiseVel = 350;
-	public static final int kTurretPositionMMAccel = 350;
+	public static final int kTurretPositionCruiseVel = 750 * 360;
+	public static final int kTurretPositionMMAccel = 1050 * 360;
 	public static final int kTurretPositionSCurveStrength = 5;
 	public static final int kTurretContinuousCurrentLimit = 8;
 	public static final int kTurretPeakCurrentThreshold = 9;
 	public static final int kTurretPeakCurrentThresholdExceedDuration = 0;
 
-	public static final double kTurretHoodKp = 0.3;
+	public static final double kTurretHoodKp = 0.7;
 	public static final double kTurretHoodKi = 0.0;
-	public static final double kTurretHoodKd = 1.7;
-	public static final double kTurretHoodKf = 0.047;
-	public static final int kTurretHoodCruiseVel = 120 * 360;
-	public static final int kTurretHoodMMAccel = 150 * 360;
-	public static final int kTurretHoodSCurveStrength = 5;
-	public static final double kTurretHoodContinuousStatorCurrentLimit = 10;
+	public static final double kTurretHoodKd = 01.5;
+	public static final double kTurretHoodKf = 1023.0 / 20000.0;
+	public static final int kTurretHoodCruiseVel = 270 * 360;
+	public static final int kTurretHoodMMAccel = 600 * 360;
+	public static final int kTurretHoodSCurveStrength = 2;
+	public static final double kTurretHoodContinuousStatorCurrentLimit = 22;
 
 	public static final double kShooterWheelKp = 0.2;
 	public static final double kShooterWheelKi = 0.0;
@@ -100,12 +100,12 @@ public class CalConstants {
 	public static final double kTurretSmallGearTeeth = 33;
 	public static final double kTurretLargeGearTeeth = 155;
 	public static final double kTurretGearRatioMotorToTurretGear = 5;
-	public static final double kTurretOverallGearRatioDeg = CalConstants.kTurretGearRatioMotorToTurretGear * (CalConstants.kTurretLargeGearTeeth / CalConstants.kTurretSmallGearTeeth) * 360.0;
+	public static final double kTurretOverallGearRatioDeg = CalConstants.kTurretGearRatioMotorToTurretGear * (CalConstants.kTurretLargeGearTeeth / CalConstants.kTurretSmallGearTeeth) / 360.0;
 
 	public static final double kTurretHoodMotorToTransmissionOutputGearRatio = 40;
 	public static final double kTurretHoodShaftGearTeeth = 30;
 	public static final double kTurretHoodTeeth = 353;
-	public static final double kTurretHoodOverallGearRatioDeg = kTurretHoodMotorToTransmissionOutputGearRatio * (kTurretHoodTeeth / kTurretHoodShaftGearTeeth) * 360;
+	public static final double kTurretHoodOverallGearRatioDeg = kTurretHoodMotorToTransmissionOutputGearRatio * (kTurretHoodTeeth / kTurretHoodShaftGearTeeth) / 360;
 	public static final double kTurretHoodMinDegrees = 0;
 	public static final double kTurretHoodMaxDegrees = 120;
 
@@ -121,11 +121,11 @@ public class CalConstants {
 	///////////////////////////////////////////////////////////////////////////
 	// Intake Feeder
 
-	public static final int kIntakeContinuousCurrentLimit = 15;
+	public static final int kIntakeContinuousCurrentLimit = 30;
 	public static final int kIntakePeakCurrentThreshold = 0;
 	public static final int kIntakePeakCurrentThresholdExceedDuration = 0;
 
-	public static final int kFeederContinuousCurrentLimit = 15;
+	public static final int kFeederContinuousCurrentLimit = 30;
 	public static final int kFeederPeakCurrentThreshold = 0;
 	public static final int kFeederPeakCurrentThresholdExceedDuration = 0;
 	///////////////////////////////////////////////////////////////////////////
