@@ -2,5 +2,6 @@ package com.team195.frc.subsystems.positions;
 
 
 public class TurretPositions {
-	public static final double PositionDelta = 0.15;
+	public static final double PositionDelta = 0.5;
+	public static final double HoodPositionDelta = 1;
 }

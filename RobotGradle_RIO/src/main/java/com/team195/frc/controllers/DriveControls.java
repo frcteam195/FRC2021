@@ -159,6 +159,14 @@ public class DriveControls {
 					new SetBallSolenoidAction(false), 300));
 		});
 
+		registerButtonPressControl(buttonBox1, 9, (j, b) -> {
+			VisionTracker.getInstance().setVisionEnabled(true);
+		});
+
+		registerButtonPressControl(buttonBox1, 10, (j, b) -> {
+			VisionTracker.getInstance().setVisionEnabled(false);
+		});
+
 
 		//Blink LEDs Button
 		registerButtonPressControl(buttonBox2, 14, (j, b) -> LEDController.getInstance().setRequestedState(LEDController.LEDState.BLINK));

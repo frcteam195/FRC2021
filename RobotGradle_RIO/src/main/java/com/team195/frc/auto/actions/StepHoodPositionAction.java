@@ -11,12 +11,12 @@ public class StepHoodPositionAction implements Action {
 	private double mPosition;
 
 	public StepHoodPositionAction(boolean increment) {
-		mPosition = mTurret.getHoodSetpoint() + (increment ? 0.25 : -0.25);
+		mPosition = mTurret.getHoodSetpoint() + (increment ? 5 : -5);
 	}
 
 	@Override
 	public boolean isFinished() {
-		return mTimeoutTimer.isTimedOut() || mTurret.isHoodAtSetpoint(TurretPositions.PositionDelta);
+		return mTimeoutTimer.isTimedOut() || mTurret.isHoodAtSetpoint(TurretPositions.HoodPositionDelta);
 	}
 
 	@Override
@@ -30,6 +30,7 @@ public class StepHoodPositionAction implements Action {
 
 	@Override
 	public void start() {
+		mTurret.setHoodControlMode(Turret.HoodControlMode.POSITION);
 		mTurret.setHoodPosition(mPosition);
 		mTimeoutTimer.reset();
 	}
