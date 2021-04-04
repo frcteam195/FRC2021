@@ -201,7 +201,7 @@ public class DriveControls {
 		});
 
 		registerButtonPressControl(buttonBox1, 15, (j, b) -> {
-			Turret.getInstance().setHoodPosition(50);
+			Turret.getInstance().setHoodPosition(47);
 			Turret.getInstance().setShooterVelocity(5400);
 			Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
 			Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
