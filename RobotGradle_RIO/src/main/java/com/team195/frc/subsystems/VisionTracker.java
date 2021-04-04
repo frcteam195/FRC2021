@@ -120,6 +120,10 @@ public class VisionTracker extends Subsystem {
 		return mVisionEnabled ? mPeriodicIO.target_distance : 0;
 	}
 
+	public double getTargetArea() {
+		return mVisionEnabled ? mPeriodicIO.target_area : 0;
+	}
+
 	public double getTargetHorizAngleDev() {
 		return mVisionEnabled ? mPeriodicIO.target_horizontal_deviation : 0;
 	}

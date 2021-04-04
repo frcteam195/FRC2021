@@ -169,6 +169,50 @@ public class DriveControls {
 					new SetTurretVisionAction(false), 300));
 		});
 
+		registerButtonPressControl(buttonBox1, 12, (j, b) -> {
+			if (Turret.getInstance().getHoodControlMode() == Turret.HoodControlMode.AUTO_RANGE) {
+				TeleopActionRunner.runAction(AutomatedAction.fromAction(
+						new SetTurretVisionAction(false), 300));
+				Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.DISABLED);
+				Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
+				Turret.getInstance().setHoodPosition(0);
+			}
+			else {
+				TeleopActionRunner.runAction(AutomatedAction.fromAction(
+						new SetTurretVisionAction(true), 300));
+				Turret.getInstance().setShooterVelocity(5400);
+				Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
+				Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.AUTO_RANGE);
+			}
+		});
+
+		registerButtonPressControl(buttonBox1, 13, (j, b) -> {
+			Turret.getInstance().setHoodPosition(10);
+			Turret.getInstance().setShooterVelocity(5400);
+			Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
+			Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
+		});
+
+		registerButtonPressControl(buttonBox1, 14, (j, b) -> {
+			Turret.getInstance().setHoodPosition(35);
+			Turret.getInstance().setShooterVelocity(5400);
+			Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
+			Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
+		});
+
+		registerButtonPressControl(buttonBox1, 15, (j, b) -> {
+			Turret.getInstance().setHoodPosition(50);
+			Turret.getInstance().setShooterVelocity(5400);
+			Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
+			Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
+		});
+
+		registerButtonPressControl(buttonBox1, 16, (j, b) -> {
+			Turret.getInstance().setHoodPosition(55);
+			Turret.getInstance().setShooterVelocity(5400);
+			Turret.getInstance().setShooterControlMode(Turret.ShooterControlMode.VELOCITY);
+			Turret.getInstance().setHoodControlMode(Turret.HoodControlMode.POSITION);
+		});
 
 		//Blink LEDs Button
 		registerButtonPressControl(buttonBox2, 14, (j, b) -> LEDController.getInstance().setRequestedState(LEDController.LEDState.BLINK));

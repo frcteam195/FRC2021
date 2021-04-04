@@ -67,9 +67,9 @@ public class Turret extends Subsystem implements InterferenceSystem {
 		mTurretHoodMotor.setGearRatioToOutputMechanism(CalConstants.kTurretHoodOverallGearRatioDeg);
 		mTurretHoodMotor.setPIDF(CalConstants.kTurretHoodKp, CalConstants.kTurretHoodKi, CalConstants.kTurretHoodKd, CalConstants.kTurretHoodKf);
 		mTurretHoodMotor.setMotionParameters(CalConstants.kTurretHoodCruiseVel, CalConstants.kTurretHoodMMAccel, CalConstants.kTurretHoodSCurveStrength);
-		mTurretHoodMotor.configForwardSoftLimitThreshold(CalConstants.kTurretHoodMaxDegrees);
+		mTurretHoodMotor.configForwardSoftLimitThreshold(CalConstants.kTurretHoodMaxDegrees + 2);
 		mTurretHoodMotor.configForwardSoftLimitEnable(true);
-		mTurretHoodMotor.configReverseSoftLimitThreshold(CalConstants.kTurretHoodMinDegrees);
+		mTurretHoodMotor.configReverseSoftLimitThreshold(CalConstants.kTurretHoodMinDegrees - 2);
 		mTurretHoodMotor.configReverseSoftLimitEnable(true);
 		mTurretHoodMotor.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, CalConstants.kTurretHoodContinuousStatorCurrentLimit, 0, 0));
 		mTurretHoodMotor.setControlMode(MCControlMode.MotionMagic);
@@ -197,6 +197,12 @@ public class Turret extends Subsystem implements InterferenceSystem {
 				case OPEN_LOOP:
 					mTurretHoodMotor.set(MCControlMode.PercentOut, Math.min(Math.max(mPeriodicIO.hood_setpoint_deg, -1), 1), 0, 0);
 					break;
+				case AUTO_RANGE:
+					mPeriodicIO.hood_setpoint_deg = mVisionTracker.getTargetArea() > 0 ? -10 * mVisionTracker.getTargetArea() + 65 : 10;
+					double dF = 0.7;
+					mPeriodicIO.hood_setpoint_deg = (1.0-dF) * mPeriodicIO.hood_prevsetpoint_deg + dF * mPeriodicIO.hood_setpoint_deg;
+					mPeriodicIO.hood_prevsetpoint_deg = mPeriodicIO.hood_setpoint_deg;
+					//Fall through to set position -> no break
 				case POSITION:
 					mTurretHoodMotor.set(MCControlMode.MotionMagic, Math.min(Math.max(mPeriodicIO.hood_setpoint_deg, CalConstants.kTurretHoodMinDegrees), CalConstants.kTurretHoodMaxDegrees), 0, 0);
 					break;
@@ -289,6 +295,9 @@ public class Turret extends Subsystem implements InterferenceSystem {
 		return mPeriodicIO.hood_setpoint_deg;
 	}
 
+	public HoodControlMode getHoodControlMode() {
+		return mHoodControlMode;
+	}
 
 	public double getShooterVelocity() {
 		return mPeriodicIO.shooter_velocity_rpm;
@@ -315,6 +324,7 @@ public class Turret extends Subsystem implements InterferenceSystem {
 	public enum HoodControlMode {
 		OPEN_LOOP,
 		POSITION,
+		AUTO_RANGE,
 		DISABLED;
 	}
 
@@ -333,6 +343,9 @@ public class Turret extends Subsystem implements InterferenceSystem {
 		mPeriodicIO.turret_loop_time = loopTimer.hasElapsed();
 		mPeriodicIO.shooter_velocity_rpm = mLeftShooterMotorMaster.getVelocity();
 		mPeriodicIO.hood_position_deg = mTurretHoodMotor.getPosition();
+//		System.out.println("Hood pos: " + mPeriodicIO.hood_position_deg);
+//		System.out.println("Hood Set: " + mPeriodicIO.hood_setpoint_deg);
+//		System.out.println("Target Area: " + mVisionTracker.getTargetArea());
 		mPeriodicIO.hood_reset = mHoodHasReset.getValue();
 	}
 
@@ -356,6 +369,7 @@ public class Turret extends Subsystem implements InterferenceSystem {
 
 		public double hood_position_deg;
 		public double hood_setpoint_deg;
+		private double hood_prevsetpoint_deg;
 		public boolean hood_reset;
 
 		// Outputs

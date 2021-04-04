@@ -79,9 +79,10 @@ public class CalConstants {
 	public static final int kTurretPeakCurrentThreshold = 9;
 	public static final int kTurretPeakCurrentThresholdExceedDuration = 0;
 
+
 	public static final double kTurretHoodKp = 0.7;
 	public static final double kTurretHoodKi = 0.0;
-	public static final double kTurretHoodKd = 01.5;
+	public static final double kTurretHoodKd = 1.5;
 	public static final double kTurretHoodKf = 1023.0 / 20000.0;
 	public static final int kTurretHoodCruiseVel = 270 * 360;
 	public static final int kTurretHoodMMAccel = 600 * 360;
@@ -107,7 +108,7 @@ public class CalConstants {
 	public static final double kTurretHoodTeeth = 353;
 	public static final double kTurretHoodOverallGearRatioDeg = kTurretHoodMotorToTransmissionOutputGearRatio * (kTurretHoodTeeth / kTurretHoodShaftGearTeeth) / 360;
 	public static final double kTurretHoodMinDegrees = 0;
-	public static final double kTurretHoodMaxDegrees = 120;
+	public static final double kTurretHoodMaxDegrees = 60;
 
 	// TODO measure on robot!
 	public static final Pose2d kVehicleToTurret = new Pose2d(0.42, -1.75, Rotation2d.identity()); //Pose of turret w.r.t. robot
